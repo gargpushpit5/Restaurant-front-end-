@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle } from 'reactstrap';
 
-class DishDetailComponent extends Component {
+class DishdetailComponent extends Component {
 
     renderDish(dish) {
         if (dish != null)
@@ -50,7 +50,7 @@ class DishDetailComponent extends Component {
     render() {
         return (
                    <div>
-                    {this.renderDish(this.props.selectedDish)}
+                    {this.renderDish(this.props.dish)}
                    </div>
                   
        
@@ -59,4 +59,4 @@ class DishDetailComponent extends Component {
     }
 }
 
-export default DishDetailComponent;
+export default DishdetailComponent;
