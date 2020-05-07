@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody,
-    CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody,CardTitle } from 'reactstrap';
 
-class DishdetailComponent extends Component {
-
-    renderDish(dish) {
+    function RenderDish({dish}) {
         if (dish != null)
-        {const menu = dish.comments.map((comment) => {
-            return (
-                    <div>
-                        <li>--{comment.comment}</li>
-                    <li>{comment.author} {comment.date}</li>
-                    <br />
-                    </div>
-                    
-            );
-        });
+        {
+            var menu=null;
+            if(dish.comments)
+            {
+                menu = dish.comments.map((comment) => {
+                    return (
+                            <div>
+                                <li>--{comment.comment}</li>
+                            <li>{comment.author} {comment.date}</li>
+                            <br />
+                            </div>
+                            
+                    );
+                });
+            }
             return(
                 <div class="container">
                 <div className="row">
@@ -45,18 +47,13 @@ class DishdetailComponent extends Component {
                 <div></div>
             );
     }
-    
-     
-    render() {
+
+const DishdetailComponent = (props) =>{ 
         return (
                    <div>
-                    {this.renderDish(this.props.dish)}
+                    <RenderDish dish={props.dish}></RenderDish>
                    </div>
-                  
-       
-           
         );
-    }
 }
 
 export default DishdetailComponent;
