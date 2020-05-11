@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron,Button, Modal, ModalHeader, ModalBody,
-  Form, FormGroup, Input, Label  } from 'reactstrap';
+  Form, FormGroup, Input, Label,FormFeedback  } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+
+import ValidatedLoginForm from "./ValidatedLoginForm";
 
 class Header extends Component {
 
@@ -11,7 +13,7 @@ class Header extends Component {
        
         this.state = {
           isNavOpen: false,
-          isModalOpen: false
+          isModalOpen: false,
         };
         this.toggleNav = this.toggleNav.bind(this);
         this.toggleModal = this.toggleModal.bind(this);
@@ -28,6 +30,9 @@ class Header extends Component {
           isModalOpen: !this.state.isModalOpen
         });
       }
+       
+     
+
       handleLogin(event) {
         this.toggleModal();
         alert("Username: " + this.username.value + " Password: " + this.password.value
@@ -36,7 +41,13 @@ class Header extends Component {
 
     }
 
+
+  
+         
+    
+
   render() {
+    
     return(
     <React.Fragment>
       <Navbar dark expand="md">
@@ -83,16 +94,18 @@ class Header extends Component {
                             <FormGroup>
                                 <Label htmlFor="username">Username</Label>
                                 <Input type="text" id="username" name="username"
-                                    innerRef={(input) => this.username = input} />
+                                  innerRef={(input) => this.username = input} />
+                               
                             </FormGroup>
                             <FormGroup>
                                 <Label htmlFor="password">Password</Label>
-                                <Input type="password" id="password" name="password"
-                                    innerRef={(input) => this.password = input}  />
+                                <Input type="password" id="password" name="password" 
+                                 innerRef={(input) => this.password = input}  />
+                                
                             </FormGroup>
                             <FormGroup check>
                                 <Label check>
-                                    <Input type="checkbox" name="remember"
+                                    <Input type="checkbox" name="remember" 
                                     innerRef={(input) => this.remember = input}  />
                                     Remember me
                                 </Label>
