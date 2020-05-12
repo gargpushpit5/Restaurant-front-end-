@@ -1,8 +1,15 @@
+//validated form with all validations required 
+
 import React from "react";
 import { Formik } from "formik";
 import * as EmailValidator from "email-validator";
 import * as Yup from "yup";
-const ValidatedLoginForm = () => (
+
+
+import { Button, Form, FormGroup, Input, Label,FormFeedback  } from 'reactstrap';
+
+
+const ValidatedLoginForm = ({onSubmit}) => (
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
@@ -11,27 +18,8 @@ const ValidatedLoginForm = () => (
         setSubmitting(false);
       }, 500);
     }}
-    //********Handling validation messages yourself*******/
-    // validate={values => {
-    //   let errors = {};
-    //   if (!values.email) {
-    //     errors.email = "Required";
-    //   } else if (!EmailValidator.validate(values.email)) {
-    //     errors.email = "Invalid email address";
-    //   }
-
-    //   const passwordRegex = /(?=.*[0-9])/;
-    //   if (!values.password) {
-    //     errors.password = "Required";
-    //   } else if (values.password.length < 8) {
-    //     errors.password = "Password must be 8 characters long.";
-    //   } else if (!passwordRegex.test(values.password)) {
-    //     errors.password = "Invalida password. Must contain one number";
-    //   }
-
-    //   return errors;
-    // }}
-    //********Using Yum for validation********/
+   
+    
 
     validationSchema={Yup.object().shape({
       email: Yup.string()
@@ -54,9 +42,10 @@ const ValidatedLoginForm = () => (
         handleSubmit
       } = props;
       return (
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
+        <Form onSubmit={onSubmit}>
+          <FormGroup>
+          <Label htmlFor="email">Email</Label>
+          <Input
             name="email"
             type="text"
             placeholder="Enter your email"
@@ -68,8 +57,10 @@ const ValidatedLoginForm = () => (
           {errors.email && touched.email && (
             <div className="input-feedback">{errors.email}</div>
           )}
-          <label htmlFor="email">Password</label>
-          <input
+          </FormGroup>
+          <FormGroup>
+          <Label htmlFor="email">Password</Label>
+          <Input
             name="password"
             type="password"
             placeholder="Enter your password"
@@ -81,10 +72,11 @@ const ValidatedLoginForm = () => (
           {errors.password && touched.password && (
             <div className="input-feedback">{errors.password}</div>
           )}
-          <button type="submit" disabled={isSubmitting}>
+          </FormGroup>
+          <Button type="submit" disabled={isSubmitting}>
             Login
-          </button>
-        </form>
+          </Button>
+        </Form>
       );
     }}
   </Formik>
