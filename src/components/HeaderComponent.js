@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Nav, Navbar, NavbarBrand, NavbarToggler, Collapse, NavItem, Jumbotron,Button, Modal, ModalHeader, ModalBody,
-  Form, FormGroup, Input, Label,FormFeedback  } from 'reactstrap';
+  Form, FormGroup, Input, Label} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-import ValidatedLoginForm from "./ValidatedLoginForm";
+
 
 class Header extends Component {
 
