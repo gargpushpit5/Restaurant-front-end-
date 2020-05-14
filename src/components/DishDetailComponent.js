@@ -72,6 +72,9 @@ class DishDetail extends Component{
       handleSubmit(values) {
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
+        this.toggleModal();
+        console.log("currents"+this.props.dish.id);
+        this.props.addComment(this.props.dish.id, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
     render(){
@@ -97,7 +100,9 @@ class DishDetail extends Component{
                  <CardTitle><h4 style={{textAlign:"center"}}>comments</h4></CardTitle>
                       <CardText>
                         <ul style={{listStyle: "none"}}>
-                            <RenderComments comments={this.props.comments} />
+                            <RenderComments comments={this.props.comments}
+                              
+                            />
                             <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Add Comment</Button>
                         </ul>
                      </CardText>
