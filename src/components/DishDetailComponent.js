@@ -5,22 +5,21 @@ import { Card, CardImg,  CardText, CardBody,CardTitle, Breadcrumb,BreadcrumbItem
 import { Link }from "react-router-dom";
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
-    function RenderDish({dish}) {
-      return (
-        
+import { Loading } from './LoadingComponent';
+
+    function RenderDish(props) {  
+        return (
         <Card>
-            <CardImg top src={dish.image} alt={dish.name} />
+            <CardImg top src={props.dish.image} alt={props.dish.name} />
             <CardBody>
-              <CardTitle>{dish.name}</CardTitle>
-              <CardText>{dish.description}</CardText>
+              <CardTitle>{props.dish.name}</CardTitle>
+              <CardText>{props.dish.description}</CardText>
             </CardBody>
         </Card>
-      );
-                    
-       
+      );  
     }
     
-function RenderComments({comments}){
+function RenderComments({comments,addComment, dishId}){
     var menu = comments.map((comment) => {
         return (
                 <div>
@@ -34,27 +33,13 @@ function RenderComments({comments}){
           
                <div>
                {menu}
+               <CommentsForm dishId={dishId} addComment={addComment} />
                </div>
-                   
-               
-                
         
-
         );
-  
-
 }
 
-
-const required = (val) => val && val.length;
-const maxLength = (len) => (val) => !(val) || (val.length <= len);
-const minLength = (len) => (val) => val && (val.length >= len);
-const isNumber = (val) => !isNaN(Number(val));
-
-
-
-class DishDetail extends Component{
-    
+class CommentsForm extends Component{
     constructor(props) {
         super(props);   
         this.state = {
@@ -73,43 +58,15 @@ class DishDetail extends Component{
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
         this.toggleModal();
-        console.log("currents"+this.props.dish.id);
-        this.props.addComment(this.props.dish.id, values.rating, values.author, values.comment);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
+
     render(){
         return (
             <div class="container">
                 <div className="row">
-                    <Breadcrumb>
-
-                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{this.props.dish.name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>{this.props.dish.name}</h3>
-                        <hr />
-                    </div>                
-                 </div>
-                 <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderDish dish={this.props.dish} />
-                    </div>
-                    <div className="col-12 col-md-5 ">
-                    <Card>
-                 <CardTitle><h4 style={{textAlign:"center"}}>comments</h4></CardTitle>
-                      <CardText>
-                        <ul style={{listStyle: "none"}}>
-                            <RenderComments comments={this.props.comments}
-                              
-                            />
-                            <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Add Comment</Button>
-                        </ul>
-                     </CardText>
-                  </Card>
-                        
-                    </div>
-                </div>
+                <Button outline onClick={this.toggleModal}><span className="fa fa-sign-in fa-lg"></span> Add Comment</Button>
                 <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
                     <ModalHeader toggle={this.toggleModal}>Add Comment</ModalHeader>
                     <ModalBody>
@@ -170,9 +127,85 @@ class DishDetail extends Component{
                         </LocalForm>
                     </ModalBody>
                 </Modal>
+                </div>
             </div>
-        );
-    }
+
+        )};
+}
+
+
+const required = (val) => val && val.length;
+const maxLength = (len) => (val) => !(val) || (val.length <= len);
+const minLength = (len) => (val) => val && (val.length >= len);
+const isNumber = (val) => !isNaN(Number(val));
+
+
+
+function DishDetail(props){
+        
+        if (props.isLoading) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
+        else if (props.errMess) {
+            return(
+                <div className="container">
+                    <div className="row">            
+                        <h4>{props.errMess}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if (props.dish != null) 
+        {return (
+            <div class="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>                
+                 </div>
+                 <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderDish dish={props.dish} />
+                    </div>
+                    <div className="col-12 col-md-5 ">
+                    <Card>
+                 <CardTitle><h4 style={{textAlign:"center"}}>comments</h4></CardTitle>
+                      <CardText>
+                        <ul style={{listStyle: "none"}}>
+                            <RenderComments comments={props.comments}
+                             addComment={props.addComment}
+                             dishId={props.dish.id}
+                            />
+                            
+                        </ul>
+                     </CardText>
+                  </Card>
+                        
+                    </div>
+                </div>
+              
+            </div>
+        );}
+        else
+        {
+            return (
+                <div>
+
+                </div>
+            );
+        }
+    
         
 }
 
