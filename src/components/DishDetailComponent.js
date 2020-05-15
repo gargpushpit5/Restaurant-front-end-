@@ -21,7 +21,7 @@ import { baseUrl } from '../shared/baseUrl';
       );  
     }
     
-function RenderComments({comments,addComment, dishId}){
+function RenderComments({comments,postComment, dishId}){
     var menu = comments.map((comment) => {
         return (
                 <div>
@@ -35,7 +35,7 @@ function RenderComments({comments,addComment, dishId}){
           
                <div>
                {menu}
-               <CommentsForm dishId={dishId} addComment={addComment} />
+               <CommentsForm dishId={dishId} postComment={postComment} />
                </div>
         
         );
@@ -60,7 +60,7 @@ class CommentsForm extends Component{
         console.log('Current State is: ' + JSON.stringify(values));
         alert('Current State is: ' + JSON.stringify(values));
         this.toggleModal();
-        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
         // event.preventDefault();
     }
 
@@ -186,7 +186,7 @@ function DishDetail(props){
                       <CardText>
                         <ul style={{listStyle: "none"}}>
                             <RenderComments comments={props.comments}
-                             addComment={props.addComment}
+                             postComment={props.postComment}
                              dishId={props.dish.id}
                             />
                             
