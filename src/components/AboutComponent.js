@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import {baseUrl} from '../shared/baseUrl';
 import { Loading } from './LoadingComponent'; 
 
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
 
 
 function About(props) {
@@ -34,6 +36,7 @@ function About(props) {
         {
             const Leaderdetails = props.leaders.map((leader) => {
                 return (
+                <Fade in>
                   <div key={leader.id} className="col-12 mt-5">
                     <Media tag="li">
                       <Media left middle>
@@ -46,6 +49,8 @@ function About(props) {
                       </Media>
                     </Media>
                   </div>
+                </Fade>
+                  
                 );
             });
             return(
@@ -63,8 +68,8 @@ function About(props) {
                     <div className="row row-content">
                         <div className="col-12 col-md-6">
                             <h2>Our History</h2>
-                            <p>Started in 2010, Ristorante con Fusion quickly established itself as a culinary icon par excellence in Hong Kong. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Hong Kong.  Featuring four of the best three-star Michelin chefs in the world, you never know what will arrive on your plate the next time you visit us.</p>
-                            <p>The restaurant traces its humble beginnings to <em>The Frying Pan</em>, a successful chain started by our CEO, Mr. Peter Pan, that featured for the first time the world's best cuisines in a pan.</p>
+                            <p>Started in 2015, Punjabi Dhaba quickly established itself as a culinary icon par excellence in Jalandhar,Punjab. With its unique brand of world fusion cuisine that can be found nowhere else, it enjoys patronage from the A-list clientele in Jalandhar,Punjab.  Featuring four of the best three-star  chefs in the Punjab, you never know what will arrive on your plate the next time you visit us.</p>
+                            <p>The restaurant traces its humble beginnings to <em>small town</em>, a successful chain started by our CEO, Mr. Pushpit garg, that featured for the first time the world's best cuisines .</p>
                         </div>
                         <div className="col-12 col-md-5">
                             <Card>
@@ -72,11 +77,11 @@ function About(props) {
                                 <CardBody>
                                     <dl className="row p-1">
                                         <dt className="col-6">Started</dt>
-                                        <dd className="col-6">3 Feb. 2013</dd>
+                                        <dd className="col-6">3 Feb. 2015</dd>
                                         <dt className="col-6">Major Stake Holder</dt>
-                                        <dd className="col-6">HK Fine Foods Inc.</dd>
+                                        <dd className="col-6">Garg Pvt. Lmtd.</dd>
                                         <dt className="col-6">Last Year's Turnover</dt>
-                                        <dd className="col-6">$1,250,375</dd>
+                                        <dd className="col-6">19,00,000 rupees</dd>
                                         <dt className="col-6">Employees</dt>
                                         <dd className="col-6">40</dd>
                                     </dl>
@@ -103,9 +108,12 @@ function About(props) {
                             <h2>Corporate Leadership</h2>
                         </div>
                         <div className="col-12">
-                            <Media list>
+                         <stagger in>
+                         <Media list>
                                 {Leaderdetails}
                             </Media>
+                         </stagger>
+                           
                         </div>
                     </div>
                 </div>

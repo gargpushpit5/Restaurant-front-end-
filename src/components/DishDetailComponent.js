@@ -9,8 +9,15 @@ import { Loading } from './LoadingComponent';
 
 import { baseUrl } from '../shared/baseUrl';
 
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
+
     function RenderDish(props) {  
         return (
+    <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
         <Card>
             <CardImg top src={baseUrl + props.dish.image} alt={props.dish.name} />
             <CardBody>
@@ -18,23 +25,27 @@ import { baseUrl } from '../shared/baseUrl';
               <CardText>{props.dish.description}</CardText>
             </CardBody>
         </Card>
+    </FadeTransform>
       );  
     }
     
 function RenderComments({comments,postComment, dishId}){
     var menu = comments.map((comment) => {
         return (
-                <div>
-                    <li>--{comment.comment}</li>
-                    <li>  {comment.author} {comment.date}  </li>
-                <br />
-                </div>
+            <Fade in>
+            <li key={comment.id}>
+            <p>{comment.comment}</p>
+            <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+            </li>
+            </Fade>
                 
     );   });
         return (
           
                <div>
-               {menu}
+                   <stagger in>
+                      {menu}
+                   </stagger>
                <CommentsForm dishId={dishId} postComment={postComment} />
                </div>
         
