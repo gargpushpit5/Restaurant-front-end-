@@ -63,7 +63,7 @@ class Header extends Component {
                                 <NavLink className="nav-link" to='/aboutus'><span className="fa fa-info fa-lg"></span> About Us</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink className="nav-link"  to='/menu'><span className="fa fa-list fa-lg"></span> Menu</NavLink>
+                                <NavLink className="nav-link"  to='/usermenu'><span className="fa fa-list fa-lg"></span> UserMenu</NavLink>
                             </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link" to='/contactus'><span className="fa fa-address-card fa-lg"></span> Contact Us</NavLink>
@@ -81,8 +81,10 @@ class Header extends Component {
            <div className="container">
                <div className="row row-header">
                    <div className="col-12 col-sm-6">
-                       <h1>Ristorante con Fusion</h1>
-                       <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                       <h1>Journal App</h1>
+                       <p>To record experiences of people diagnosed with covid and help others to be safe in this pandemic.
+                         Stau Home Stay Safe
+                       </p>
                    </div>
                </div>
            </div>

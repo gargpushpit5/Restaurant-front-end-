@@ -1,36 +1,53 @@
 import * as ActionTypes from './ActionTypes';
-import { DISHES } from '../shared/dishes';
 
-export const addComment = (dishId, rating, author, comment) => ({
-    type: ActionTypes.ADD_COMMENT,
+import { USERS } from '../shared/users';
+
+
+
+
+export const addBlog = (journalId, article, tags) => ({
+    type: ActionTypes.ADD_BLOG,
     payload: {
-        dishId: dishId,
-        rating: rating,
-        author: author,
-        comment: comment
+        journalId:journalId,
+        article:article,
+        tags:tags
     }
 });
 
 
-export const fetchDishes = () => (dispatch) => {
 
-    dispatch(dishesLoading(true));
+export const addVital = (journalId, oxygenLevel, temp, status) => ({
+    type: ActionTypes.ADD_VITAL,
+    payload: {
+        journalId: journalId,
+        oxygenLevel: oxygenLevel,
+        temp: temp,
+        status: status
+    }
+});
+
+
+
+//for users
+export const fetchUsers = () => (dispatch) => {
+
+    dispatch(usersLoading(true));
 
     setTimeout(() => {
-        dispatch(addDishes(DISHES));
+        dispatch(addUsers(USERS));
     }, 2000);
 }
 
-export const dishesLoading = () => ({
-    type: ActionTypes.DISHES_LOADING
+export const usersLoading = () => ({
+    type: ActionTypes.USERS_LOADING
 });
 
-export const dishesFailed = (errmess) => ({
-    type: ActionTypes.DISHES_FAILED,
+export const usersFailed = (errmess) => ({
+    type: ActionTypes.USERS_FAILED,
     payload: errmess
 });
 
-export const addDishes = (dishes) => ({
-    type: ActionTypes.ADD_DISHES,
-    payload: dishes
+export const addUsers= (users) => ({
+    type: ActionTypes.ADD_USERS,
+    payload: users
 });

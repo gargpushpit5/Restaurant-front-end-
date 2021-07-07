@@ -1,17 +1,22 @@
 import React, { Component } from 'react';
 
-import Menu from './MenuComponent';
-import DishDetail from './DishDetailComponent';
+import UserMenu from './UserMenuComponent.js';
+import UserDetail from './UserDetailComponent';
+
+
 
 import Contact from './ContactComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent.js';
 import About from './AboutComponent.js';
 
-import { addComment, fetchDishes } from '../redux/ActionCreators';
+
+import {  fetchUsers,addVital,addBlog } from '../redux/ActionCreators';
 
 import { connect } from 'react-redux';
 import { actions } from 'react-redux-form';
+
+
 
 
 
@@ -23,23 +28,28 @@ import { Switch, Route, Redirect,withRouter} from 'react-router-dom';
 const HomePage = () => {                    //home component
   return(
       <Home 
+      item={this.props.homes}
       />
   );
 }  
 
 const mapStateToProps = state => {
   return {
-    dishes: state.dishes,
-    comments: state.comments,
-    promotions: state.promotions,
-    leaders: state.leaders
+    
+     homes: state.homes,
+    users:state.users,
+    vitals:state.vitals,
+    blogs:state.blogs
   }
 }
 
 const mapDispatchToProps = dispatch => ({
   
-  addComment: (dishId, rating, author, comment) => dispatch(addComment(dishId, rating, author, comment)),
-  fetchDishes: () => { dispatch(fetchDishes())},
+
+  addVital: (journalId, oxygenLevel, temp, status) => dispatch(addVital(journalId, oxygenLevel, temp, status)),
+  addBlog: (journalId,article,tags ) => dispatch(addBlog(journalId, article,tags)),
+  
+  fetchUsers: () => { dispatch(fetchUsers())},
   resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
 
 });
@@ -52,40 +62,48 @@ class Main extends Component {
   }
  
   componentDidMount() {
-    this.props.fetchDishes();
+    
+    this.props.fetchUsers();
   }
 
   render() {
     const HomePage = () => {
       return(
           <Home 
-              dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
-              dishesLoading={this.props.dishes.isLoading}
-              dishesErrMess={this.props.dishes.errMess}
-              promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
-              leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+               item={this.props.homes}
+             
           />
       );
     }
-    const DishWithId = ({match}) => {
+   
+
+    const UserWithId = ({match}) => {
       return(
-        <DishDetail dish={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]}
-            isLoading={this.props.dishes.isLoading}
-            errMess={this.props.dishes.errMess}
-            comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
-            addComment={this.props.addComment}
+        <UserDetail user={this.props.users.users.filter((user) => user.id === parseInt(match.params.userId,10))[0]}
+            isLoading={this.props.users.isLoading}
+            errMess={this.props.users.errMess}
+            
+            vitals={this.props.vitals.filter((vital) => vital.journalId === parseInt(match.params.userId,10))}
+            addVital={this.props.addVital}
+            addBlog={this.props.addBlog}
+            blogs={this.props.blogs.filter((blog) => blog.journalId === parseInt(match.params.userId,10))}
       />
       );
     };
+
+
+
     return (
       <div>
          <Header></Header>
          <Switch>
               <Route path='/home' component={HomePage} />
-              <Route exact path='/menu' component={() => <Menu dishes={this.props.dishes} />} />
-              <Route path='/menu/:dishId' component={DishWithId} />
+          
+              <Route exact path='/usermenu' component={() => <UserMenu users={this.props.users} />} />
+              <Route path='/usermenu/:userId' component={UserWithId} />
+              
               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
-              <Route path="/aboutus" component={() => <About leaders={this.props.leaders} />} />
+              <Route path="/aboutus" component={() => <About  />} />
               <Redirect to="/home" />
           </Switch>
         

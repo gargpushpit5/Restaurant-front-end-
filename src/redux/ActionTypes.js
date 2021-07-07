@@ -1,6 +1,10 @@
-export const ADD_COMMENT = 'ADD_COMMENT';
+
+export const ADD_VITAL = 'ADD_VITAL';
+
+export const ADD_BLOG = 'ADD_BLOG';
 
 
-export const DISHES_LOADING = 'DISHES_LOADING';
-export const DISHES_FAILED = 'DISHES_FAILED';
-export const ADD_DISHES = 'ADD_DISHES';
+
+export const ADD_USERS = 'ADD_USERS';
+export const USERS_LOADING = 'USERS_LOADING';
+export const USERS_FAILED = 'USERS_FAILED';

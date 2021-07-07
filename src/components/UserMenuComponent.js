@@ -7,28 +7,28 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody,
 
   import { Link } from 'react-router-dom';
 
-function RenderMenuItem({dish}){
+function RenderUserMenuItem({user}){
   return (
     <Card>
-    <Link to={`/menu/${dish.id}`} >
-        <CardImg width="100%" src={dish.image} alt={dish.name} />
+    <Link to={`/usermenu/${user.id}`} >
+        <CardImg width="100%" src={user.image} alt={user.name} />
         <CardImgOverlay>
-            <CardTitle>{dish.name}</CardTitle>
+            <CardTitle>{user.name}</CardTitle>
         </CardImgOverlay>
     </Link>
 </Card>
   );
 }
-const Menu = (props) => {
+const UserMenu = (props) => {
     
-      const menu = props.dishes.dishes.map((dish) => {
+      const usermenu = props.users.users.map((user) => {
         return (
           <div  className="col-12 col-md-5 m-1">
-            <RenderMenuItem dish={dish} ></RenderMenuItem>
+            <RenderUserMenuItem user={user} ></RenderUserMenuItem>
           </div>
         );
     });
-    if (props.dishes.isLoading) {
+    if (props.users.isLoading) {
       return(
           <div className="container">
               <div className="row">            
@@ -37,12 +37,12 @@ const Menu = (props) => {
           </div>
       );
   }
-  else if (props.dishes.errMess) {
+  else if (props.users.errMess) {
       return(
           <div className="container">
               <div className="row"> 
                   <div className="col-12">
-                      <h4>{props.dishes.errMess}</h4>
+                      <h4>{props.users.errMess}</h4>
                   </div>
               </div>
           </div>
@@ -54,20 +54,20 @@ const Menu = (props) => {
               <div className="row">
                     <Breadcrumb>
                         <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>Menu</BreadcrumbItem>
+                        <BreadcrumbItem active>UserMenu</BreadcrumbItem>
                     </Breadcrumb>
                     <div className="col-12">
-                        <h3>Menu</h3>
+                        <h3>UserMenu</h3>
                         <hr />
                     </div>                
                 </div>
                 
                  <div className="row">
-                     {menu}
+                     {usermenu}
                  </div>
       </div>
   );
     
 }
 
-export default Menu;
+export default UserMenu;
